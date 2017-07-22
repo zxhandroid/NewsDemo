@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -24,7 +23,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     @BindView(R.id.fl_content)
     FrameLayout mFlContent;
     @BindView(R.id.bottom_navigation_bar)
-    BottomNavigationBar mBottomNavigationBar;
+    public BottomNavigationBar mBottomNavigationBar;
     private ArrayList<Fragment> mFragmentList;
     private FragmentTransaction mTransaction;
 
@@ -84,8 +83,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void onTabSelected(int position) {
-        Toast.makeText(this, "position:" + position, Toast.LENGTH_SHORT)
-                .show();
+//        Toast.makeText(this, "position:" + position, Toast.LENGTH_SHORT)
+//                .show();
         if (mFragmentList != null) {
             if (position < mFragmentList.size()) {
                 FragmentManager fm = getSupportFragmentManager();
@@ -99,18 +98,42 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 transaction.commitAllowingStateLoss();
                 //            invalidateToolbarExists();
             }
+            hideUnselected(position);
+        }
+    }
+
+    /**
+     * 当调用mBottomNavigationBar.selectTab(int index)时不会走onTabUnselected()方法，
+     * 所以要在onTabSelected()中对未选中的进行隐藏
+     * @param position  选中的索引
+     */
+    private void hideUnselected(int position) {
+        for (int i = 0; i < mFragmentList.size(); i++) {
+            if (i != position){
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                Fragment fragment = mFragmentList.get(i);
+                if (fragment.isAdded() && !fragment.isHidden()){
+                    transaction.hide(fragment);
+                    transaction.commitAllowingStateLoss();
+                }
+            }
         }
     }
 
     @Override
     public void onTabUnselected(int position) {
+//        Toast.makeText(this, "onTabUnselected=position:" + position, Toast.LENGTH_SHORT)
+//             .show();
         if (mFragmentList != null) {
             if (position < mFragmentList.size()) {
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction transaction = fm.beginTransaction();
                 Fragment fragment = mFragmentList.get(position);
-                transaction.hide(fragment);
-                transaction.commitAllowingStateLoss();
+                if (!fragment.isHidden()) {
+                    transaction.hide(fragment);
+                    transaction.commitAllowingStateLoss();
+                }
             }
         }
     }

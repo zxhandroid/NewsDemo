@@ -12,6 +12,7 @@ import retrofit2.http.GET;
 
 public interface NewsService {
     String BASE_URL = "http://www.tngou.net/api/";
+    String BASE_URL_TEST = "http://news-at.zhihu.com/api/4/";
 
     //这个为测试
     @GET("news/latest")
@@ -19,7 +20,7 @@ public interface NewsService {
 
     /** 新闻分类 */
     @GET("top/classify")
-    Call<NewsClassifyBean> getNewsClassify();
+    Call<NewsClassifyBean.TngouBean> getNewsClassify();
 
 //    /** 最新新闻列表 要指定泛型*/
 //    @GET("top/list")
