@@ -86,7 +86,7 @@ public abstract class BaseFragment
      */
     protected void hideDialog(){
         if (mProgressDialog!= null && mProgressDialog.isShowing()){
-            mProgressDialog.hide();
+            mProgressDialog.dismiss();
         }
     }
 

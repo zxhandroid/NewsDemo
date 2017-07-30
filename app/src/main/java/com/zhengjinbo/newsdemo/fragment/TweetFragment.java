@@ -12,10 +12,14 @@ import com.google.gson.Gson;
 import com.zhengjinbo.newsdemo.Adapter.HomeGridAdapter;
 import com.zhengjinbo.newsdemo.R;
 import com.zhengjinbo.newsdemo.activity.MainActivity;
+import com.zhengjinbo.newsdemo.base.AppConstants;
 import com.zhengjinbo.newsdemo.base.BaseFragment;
 import com.zhengjinbo.newsdemo.bean.NewsClassifyBean;
+import com.zhengjinbo.newsdemo.event.HomeItemClickEvent;
 import com.zhengjinbo.newsdemo.http.HttpUtils;
 import com.zhengjinbo.newsdemo.http.NewsService;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +32,7 @@ import retrofit2.Response;
 /**
  * Created by zhengjinbo.
  */
-public class HomeFragment
+public class TweetFragment
         extends BaseFragment
         implements AdapterView.OnItemClickListener
 {
@@ -101,8 +105,6 @@ public class HomeFragment
             }
         });
 
-
-
     }
 
     /**
@@ -127,7 +129,7 @@ public class HomeFragment
     private void initTitle() {
         Bundle arguments = getArguments();
         if (arguments != null) {
-            String title = arguments.getString("home");
+            String title = arguments.getString(AppConstants.KEY_TWEET);
             mTvTitle.setText(title);
         }
     }
@@ -141,6 +143,9 @@ public class HomeFragment
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         List<NewsClassifyBean.TngouBean> datas = mGridAdapter.getDatas();
         NewsClassifyBean.TngouBean       tngouBean = datas.get(position);
+        //点击跳转到新闻tab
         ((MainActivity)mContext).mBottomNavigationBar.selectTab(1);
+        //传递一个事件，将新闻id传递过去
+        EventBus.getDefault().post(new HomeItemClickEvent(tngouBean.getId()));
     }
 }

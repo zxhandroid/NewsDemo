@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.zhengjinbo.newsdemo.R;
 import com.zhengjinbo.newsdemo.activity.LoginActivity;
+import com.zhengjinbo.newsdemo.base.AppConstants;
 import com.zhengjinbo.newsdemo.base.BaseFragment;
 
 import butterknife.BindView;
@@ -34,7 +35,7 @@ public class MeFragment
     protected void initData() {
         Bundle arguments = getArguments();
         if (arguments != null) {
-            String title = arguments.getString("me");
+            String title = arguments.getString(AppConstants.KEY_ME);
             mTvTitle.setText(title);
         }
     }

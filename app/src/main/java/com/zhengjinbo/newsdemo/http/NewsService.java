@@ -22,10 +22,10 @@ public interface NewsService {
     @GET("top/classify")
     Call<NewsClassifyBean.TngouBean> getNewsClassify();
 
-//    /** 最新新闻列表 要指定泛型*/
+    /** 最新新闻列表 要指定泛型*/
 //    @GET("top/list")
-//    Call<T> getNewsClassifyList(@Query("id") int id,@Query("page") int page,@Query("rows") int rows);
-//
+//    Call<T> getNewsClassifyList(@Query("id") int id, @Query("page") int page, @Query("rows") int rows);
+
 //     /** 最新新闻列表 要指定泛型*/
 //    @GET("top/news")
 //    Call<T> getNewsLastest(@Query("id") int id,@Query("rows") int rows);

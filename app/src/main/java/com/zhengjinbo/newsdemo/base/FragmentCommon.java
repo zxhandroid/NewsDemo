@@ -3,7 +3,7 @@ package com.zhengjinbo.newsdemo.base;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.zhengjinbo.newsdemo.fragment.HomeFragment;
+import com.zhengjinbo.newsdemo.fragment.TweetFragment;
 import com.zhengjinbo.newsdemo.fragment.MeFragment;
 import com.zhengjinbo.newsdemo.fragment.NewsFragment;
 
@@ -17,23 +17,22 @@ public class FragmentCommon {
 
     public static Fragment newInstance(String text) {
         switch (text) {
-            case "首页":
-                fragment = new HomeFragment();
+            case AppConstants.TAB_NEWS:
+            fragment = new NewsFragment();
+            Bundle newsData = new Bundle();
+            newsData.putString(AppConstants.KEY_NEWS,text);
+            fragment.setArguments(newsData);
+            break;
+            case AppConstants.TAB_TWEET:
+                fragment = new TweetFragment();
                 Bundle homeData = new Bundle();
-                homeData.putString("home",text);
+                homeData.putString(AppConstants.KEY_TWEET,text);
                 fragment.setArguments(homeData);
                 break;
-            case "新闻":
-                fragment = new NewsFragment();
-                Bundle newsData = new Bundle();
-                newsData.putString("news",text);
-                fragment.setArguments(newsData);
-
-                break;
-            case "我的":
+            case AppConstants.TAB_ME:
                 fragment = new MeFragment();
                 Bundle meData = new Bundle();
-                meData.putString("me",text);
+                meData.putString(AppConstants.KEY_ME,text);
                 fragment.setArguments(meData);
                 break;
             default:

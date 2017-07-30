@@ -3,7 +3,7 @@ apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.zhengjinbo.newsdemo"
         minSdkVersion 15
@@ -35,6 +35,10 @@ dependencies {
     //网络请求框架retrofit
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    //事件传递总线 eventBus 3.0
+    compile 'org.greenrobot:eventbus:3.0.0'
+    //上拉加载、下拉刷新recyclerView
+    compile 'com.jcodecraeer:xrecyclerview:1.3.2'
 
     compile 'com.google.code.gson:gson:2.8.1'
 }
